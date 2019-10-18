@@ -100,7 +100,7 @@ class TwoCaptchaClient(object):
         # Session instance
         self.session = requests.Session()
 
-    def __check_response(self, response):
+    def _check_response(self, response):
         if(response.get('status', False) == 0 and
            response.get('request') != "CAPCHA_NOT_READY"):
 
@@ -122,7 +122,7 @@ class TwoCaptchaClient(object):
             urljoin(self.base_url, self.CREATE_TASK_URL), request)
         ).json()
 
-        self.__check_response(response)
+        self._check_response(response)
 
         return CaptchaJob(self, response['request'])
 

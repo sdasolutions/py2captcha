@@ -27,7 +27,7 @@ Usage
         
         # Create Recaptcha Task
         task = GoogleReCaptchav2Task(googlekey=google_key, pageurl=url)
-        job = client.createTask(task)
+        job = client.create_task(task)
         
         # Wait until captcha is solved
         job.join()
