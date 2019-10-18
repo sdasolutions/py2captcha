@@ -1,0 +1,4 @@
+# Ignoring build files
+build/
+dist/
+*.egg-info
