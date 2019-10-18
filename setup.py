@@ -33,7 +33,7 @@ setup(
         'beautifulsoup4'
     ],
 
-    url='https://github.com/manuelaguadomtz/pyeer',
+    url='https://github.com/sdasolutions/py2captcha',
 
     keywords=[
         'CAPTCHA',
