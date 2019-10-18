@@ -7,15 +7,18 @@ Only support Google Recaptcha new method.
 Getting Started
 ---------------
 
-Install as standard Python package using:
+Install as a standard Python package using:
 
-    python setup.py install
+    pip install py2captcha
 
 Usage
 -----
-
+        
+        # 2captcha.com authentication key
         key = "Your key goes here"
-        google_key = "Google recaptcha key"
+
+        # Website data
+        google_key = "Google recaptcha key"  # sitekey
         url = "http://site.com/captchaurl"
         
         # Create client

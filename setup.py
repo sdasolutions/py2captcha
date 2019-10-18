@@ -21,11 +21,30 @@ setup(
 
     author='SDASolutions',
 
-    author_email='sdasolutions@gmail.com',
+    author_email='sdasolutions.co@gmail.com',
 
     license='MIT',
 
     packages=['py2captcha'],
 
-    install_requires=['requests', 'six', 'beautifulsoup4']
+    install_requires=[
+        'requests',
+        'six',
+        'beautifulsoup4'
+    ],
+
+    url='https://github.com/manuelaguadomtz/pyeer',
+
+    keywords=[
+        'CAPTCHA',
+        'reCAPTCHA'
+    ],
+
+    classifiers=[
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
+        'Topic :: Internet',
+        'Programming Language :: Python',
+        'License :: OSI Approved :: MIT License'
+    ],
 )
