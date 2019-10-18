@@ -1,8 +1,7 @@
 Py2captcha
 ==========
 
-Client library for solve captchas with 2captcha.com support. 
-Only support Google Recaptcha new method.
+Client library to solve captchas with 2captcha.com support.
 
 Getting Started
 ---------------
@@ -13,6 +12,8 @@ Install as a standard Python package using:
 
 Usage
 -----
+        
+        from py2captcha import TwoCaptchaClient, GoogleReCaptchav2Task
         
         # 2captcha.com authentication key
         key = "Your key goes here"
@@ -25,7 +26,7 @@ Usage
         client = TwoCaptchaClient(client_key=key)
         
         # Create Recaptcha Task
-        task = ReCaptchav2NewMethod(googlekey=google_key, pageurl=url)
+        task = GoogleReCaptchav2Task(googlekey=google_key, pageurl=url)
         job = client.createTask(task)
         
         # Wait until captcha is solved
@@ -39,3 +40,8 @@ Usage
         
         # Base 5 solution time
         time = job.get_solution_time()
+
+Supported CAPTCHA types
+-----------------------
+
+**reCAPTCHA V2**
