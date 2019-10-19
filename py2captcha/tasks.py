@@ -9,7 +9,7 @@ class BaseTask(object):
         return "".join(["&{0}={1}".format(k, v) for k, v in params.items()])
 
 
-class GoogleReCaptchav2Task(BaseTask):
+class GoogleReCaptchaV2Task(BaseTask):
     """Google Recaptcha v2"""
     TASK_ID = 'userrecaptcha'
     params = "&method=&googlekey={0}&pageurl={1}"
@@ -25,4 +25,4 @@ class GoogleReCaptchav2Task(BaseTask):
             'googlekey': self.googlekey,
             'pageurl': self.pageurl
         }
-        return super(GoogleReCaptchav2Task, self).serialize(**params)
+        return super(GoogleReCaptchaV2Task, self).serialize(**params)

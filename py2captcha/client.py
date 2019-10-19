@@ -8,11 +8,11 @@ from bs4 import BeautifulSoup
 
 
 ServiceLoad = namedtuple('ServiceLoad', [
-    'waiting',  # Amount of idle workers
+    'free_workers',  # Amount of idle workers
     'load',  # Service load factor
-    'total',
-    'bid',  # Max price or bid for captchas
-    'speed'  # Captcha solve speed
+    'workers_total',  # Amount of workers
+    'bid',  # CAPTCHA price
+    'speed'  # Average CAPTCHA solve speed
 ])
 
 
@@ -212,10 +212,17 @@ class TwoCaptchaClient(object):
             service_load = int(service_load.replace('%', ''))
             workers_total = int(workers_total)
             solving_speed = int(solving_speed.replace('s', ''))
+            busy_workers = int(workers_total * service_load / 100)
+            free_workers = workers_total - busy_workers
             bid = float(bid)
 
-            return ServiceLoad(waiting=workers_total * service_load / 100,
-                               total=workers_total, bid=bid, load=service_load,
-                               speed=solving_speed)
+            return ServiceLoad(
+                free_workers=free_workers,
+                workers_total=workers_total,
+                bid=bid,
+                load=service_load,
+                speed=solving_speed
+            )
+
         except Exception:
             raise TwoCaptchaException("ERROR_2CAPTCHA_SERVICE")

@@ -13,7 +13,7 @@ Install as a standard Python package using:
 Usage
 -----
         
-        from py2captcha import TwoCaptchaClient, GoogleReCaptchav2Task
+        from py2captcha import TwoCaptchaClient, GoogleReCaptchaV2Task
         
         # 2captcha.com authentication key
         key = "Your key goes here"
@@ -26,7 +26,7 @@ Usage
         client = TwoCaptchaClient(client_key=key)
         
         # Create Recaptcha Task
-        task = GoogleReCaptchav2Task(googlekey=google_key, pageurl=url)
+        task = GoogleReCaptchaV2Task(googlekey=google_key, pageurl=url)
         job = client.create_task(task)
         
         # Wait until captcha is solved
