@@ -1,10 +1,13 @@
-import requests
 import time
 from collections import namedtuple
 
 from six.moves.urllib_parse import urljoin
 from .exceptions import TwoCaptchaException
 from bs4 import BeautifulSoup
+
+from requests.packages.urllib3.util.retry import Retry
+from requests.adapters import HTTPAdapter
+from requests import Session
 
 
 ServiceLoad = namedtuple('ServiceLoad', [
@@ -112,7 +115,10 @@ class TwoCaptchaClient(object):
         self.base_url = "{proto}://2captcha.com/".format(proto=proto)
 
         # Session instance
-        self.session = requests.Session()
+        self.session = Session()
+        retries = Retry(total=5, backoff_factor=10)
+        self.session.mount("http://", HTTPAdapter(max_retries=retries))
+        self.session.mount("https://", HTTPAdapter(max_retries=retries))
 
     def _check_response(self, response):
         if(response.get('status', False) == 0 and
@@ -147,6 +153,8 @@ class TwoCaptchaClient(object):
         @param task_id: The ID of the task. The ID is returned by the server
             when the task is created
         @type task_id: string
+        @param retries: Number of retries for connection errors
+        @type retries: int
         """
         result_params = "&action=get2&id={0}".format(task_id)
         request = self.base_params + result_params
