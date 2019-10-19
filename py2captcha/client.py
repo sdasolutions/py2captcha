@@ -35,31 +35,45 @@ class CaptchaJob(object):
         self._last_elapsed_time = None
 
     def _update(self):
+        """Update the status of the task"""
         self._last_result = self.client.get_task_result(self.task_id)
 
     def check_is_ready(self):
+        """Check if a task is complete"""
         self._update()
         return self._last_result['request'] != 'CAPCHA_NOT_READY'
 
-    def get_solution_response(self):  # Recaptcha
+    def get_solution_response(self):
+        """Get the solved CAPTCHA"""
         if '|' in self._last_result['request']:
             return self._last_result['request'].split('|')[0]
         else:
             return self._last_result['request']
 
     def get_solution_cost(self):
+        """CAPTCHA solution cost"""
         if '|' in self._last_result['request']:
             return float(self._last_result['request'].split('|')[1]) / 1000
         else:
             return 0.00299
 
     def get_solution_time(self):
+        """CAPTCHA solution time"""
         return self._last_elapsed_time
 
     def report_bad_captcha(self):
+        """Reports a bad CAPTCHA"""
         return self.client.report_bad_captcha(task_id=self.task_id)
 
     def join(self, maximum_time=300, sleep_time=5):
+        """Wait for a CAPTCHA to be solved
+
+        Keyword Arguments:
+        @param maximum_time: Maximum time to wait for a CAPTCHA to be solved
+        @type maximum_time: int
+        @param sleep_time: Sleep time between checks
+        @type maximum_time: int
+        """
         elapsed_time = 0
         while not self.check_is_ready():
             time.sleep(sleep_time)
