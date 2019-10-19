@@ -22,24 +22,37 @@ Usage
         google_key = "Google recaptcha key"  # sitekey
         url = "http://site.com/captchaurl"
         
-        # Create client
-        client = TwoCaptchaClient(client_key=key)
-        
+        # Requesting 2captcha.com queue status for reCAPTCHA V2
+        status = client.get_queue_stats()
+
+        print("reCAPTCHA V2 queue status:")
+        print("Total workers: %d" % status.workers_total)
+        print("Free workers: %d" % status.free_workers)
+        print("Load factor: %d%%" % status.load)
+        print("Average solve speed: %d seconds" % status.speed)
+        print("Price per 1000 CAPTCHAS: %f USD" % status.bid)
+
         # Create Recaptcha Task
         task = GoogleReCaptchaV2Task(googlekey=google_key, pageurl=url)
         job = client.create_task(task)
-        
+
         # Wait until captcha is solved
+        # For async runs just call job.check_is_ready() until it returns true
         job.join()
-        
+
         # Result
-        value = job.get_solution_response()
-        
+        token = job.get_solution_response()
+
         # Cost (Always 2.9/1000)
         cost = job.get_solution_cost()
-        
+
         # Base 5 solution time
         time = job.get_solution_time()
+
+        print("Token: %s" % token)
+        print("Task cost: %f" % cost)
+        print("Task solve time: %d" % time)
+
 
 Supported CAPTCHA types
 -----------------------
