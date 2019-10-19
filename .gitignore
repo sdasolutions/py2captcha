@@ -6,3 +6,6 @@ __pycache__
 
 # Ignoring test files
 test.py
+
+# Ignoring TODO file
+TODO
