@@ -2,7 +2,8 @@ import time
 from collections import namedtuple
 
 from six.moves.urllib_parse import urljoin
-from .exceptions import TwoCaptchaException
+from .exceptions import TwoCaptchaException, TwoCaptchaTimeoutException,\
+    TwoCaptchaTaskErrorException
 from bs4 import BeautifulSoup
 
 from requests.packages.urllib3.util.retry import Retry
@@ -84,7 +85,7 @@ class CaptchaJob(object):
             if elapsed_time is not None and elapsed_time > maximum_time:
                 err_msg = ("The execution time exceeded a "
                            "maximum time of {} seconds.").format(maximum_time)
-                raise TwoCaptchaException('TASK_TIMEOUT', err_msg)
+                raise TwoCaptchaTimeoutException(err_msg)
         self._last_elapsed_time = elapsed_time
 
 
@@ -123,10 +124,7 @@ class TwoCaptchaClient(object):
         if(response.get('status', False) == 0 and
            response.get('request') != "CAPCHA_NOT_READY"):
 
-            raise TwoCaptchaException(
-                "CAPTCHA_SOLVE_ERROR",
-                response['request']
-            )
+            raise TwoCaptchaTaskErrorException(response['request'])
 
     def create_task(self, task):
         """Create a CAPTCHA request in the server
@@ -208,7 +206,6 @@ class TwoCaptchaClient(object):
 
         if status_request.status_code != 200:
             raise TwoCaptchaException(
-                "ERROR_2CAPTCHA_SERVICE",
                 "Response status code: %d" % status_request.status_code,
             )
 
@@ -252,7 +249,4 @@ class TwoCaptchaClient(object):
             )
 
         except Exception:
-            raise TwoCaptchaException(
-                "ERROR_2CAPTCHA_SERVICE",
-                "Error parsing queue status information"
-            )
+            raise TwoCaptchaException("Error parsing queue status information")
