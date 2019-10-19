@@ -1,17 +1,14 @@
-Py2captcha
-==========
+# Py2captcha
 
 Client library to solve captchas with 2captcha.com support.
 
-Getting Started
----------------
+## Getting Started
 
 Install as a standard Python package using:
 
     pip install py2captcha
 
-Usage
------
+## Usage
         
         from py2captcha import TwoCaptchaClient, GoogleReCaptchaV2Task
         
@@ -57,8 +54,6 @@ Usage
         print("Solve time: %d seconds" % time)
 
 
+## Supported CAPTCHA types
 
-Supported CAPTCHA types
------------------------
-
-**reCAPTCHA V2**
+* reCAPTCHA V2
