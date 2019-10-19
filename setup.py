@@ -13,11 +13,13 @@ version = '0.0.4'
 setup(
     name='py2captcha',
 
-    version='0.1.0',
+    version='0.1.1',
 
     description='Client library for solve captchas with 2captcha.com support.',
 
     long_description=long_description,
+
+    long_description_content_type='text/markdown',
 
     author='SDASolutions',
 
