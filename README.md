@@ -22,6 +22,9 @@ Usage
         google_key = "Google recaptcha key"  # sitekey
         url = "http://site.com/captchaurl"
         
+        # Create client
+        client = TwoCaptchaClient(client_key=key)
+
         # Requesting 2captcha.com queue status for reCAPTCHA V2
         status = client.get_queue_stats()
 
@@ -50,8 +53,9 @@ Usage
         time = job.get_solution_time()
 
         print("Token: %s" % token)
-        print("Task cost: %f" % cost)
-        print("Task solve time: %d" % time)
+        print("Cost: %f USD" % cost)
+        print("Solve time: %d seconds" % time)
+
 
 
 Supported CAPTCHA types
